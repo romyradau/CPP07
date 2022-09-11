@@ -5,8 +5,8 @@
 
 template<typename T>
 // void	iter(T const* arr_address, sizeof(T const*) len,  void *funcPtr(T))
-void	iter(T const* arr_address, int len,  void *funcPtr(T))
-
+void	iter(T* arr_address, int len,  void (*funcPtr)(T&))
+//warum kann ich T* nicht const machen?
 //		iter(char const* arr_addrass, sizeof(char const*), generic_f(char))
 //		iter(std::string* arr_address, sizeof(std::string *), geberic_f(std::string))
 {
@@ -16,7 +16,13 @@ void	iter(T const* arr_address, int len,  void *funcPtr(T))
 }
 
 template<typename T>
-void	calc_len(T){
-	std::cout << sizeof(T) << std::endl;
+void	calc_len(T& thing){
+	std::cout << sizeof(thing) << std::endl;
 }
 #endif
+
+template<typename T>
+void	cast_stuff(T& thing){
+	std::cout << "castValue:" << static_cast<char>(thing) << std::endl;
+
+}
