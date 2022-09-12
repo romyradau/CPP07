@@ -2,7 +2,7 @@
 #include <iomanip>
 
 template< typename T = float >
-//if i don't tell you what type it is compiler, assume that it's this type
+//if i don't tell what type it is, compiler assumes that it's this type
 class Array{
 
 	public:
@@ -20,15 +20,18 @@ class Array{
 			
 			*this = src;
 		}
-		~Array();
+		~Array(){
+			delete [] _array;
+		}
 
 		Array & operator=(Array const & rhs){
 			
 			if ( this != &rhs){
 
 				_len = rhs._len;
-				//ode rhier rhs._size() - weil man nicht an das Attribut der anderen kann?
+				//ode rhier rhs._size() - weil man nicht an das Attribut von rhs kann?
 				//Einschub, kann es auch sein, dass man hier zwei verschieden Array Klassen miteinader gleichsetzen will???
+				std::cout << *_array << '\n';
 				if (_array)
 					delete [] _array;
 				_array = new T [rhs._len];
@@ -40,9 +43,21 @@ class Array{
 			return *this;
 		}
 
-		T const& operator[](T* arrPtr);
+
+
+		T& operator[](unsigned int index){
+		//mit unsigned sollte der Fall < 0 auch gar nicht gehen...
+		//vertstehe die Schreibweise hier nicht... weil, das unisgned int doch in den [sein muss]
+			if (index >= _len || index < 0)
+				throw std::out_of_range("index out of range");
+			else
+				return (_array[index]);
+		}
 		//hier gibt  man ein Element und nicht die ganze Klasse zurück!
-		size_t size() const;
+		size_t size() const{
+
+			return _len;
+		}
 	
 	private:
 
@@ -55,7 +70,8 @@ class Array{
 
 template<typename T>
 std::ostream& operator<<(std::ostream& o, Array<T>const & v){
-	o << v.size() << std::cout;
+	o << v.size();
+	return o;
 }
 
 //wo würde man jetzt immer die eckigen Klammern hinschreiben?
