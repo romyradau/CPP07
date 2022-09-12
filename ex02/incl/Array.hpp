@@ -16,7 +16,7 @@ class Array{
 			_array = new T[n];
 			_len = n;
 		}
-		Array( Array const & src){
+		Array( Array const & src): _array(0){
 			
 			*this = src;
 		}
@@ -31,7 +31,7 @@ class Array{
 				_len = rhs._len;
 				//ode rhier rhs._size() - weil man nicht an das Attribut von rhs kann?
 				//Einschub, kann es auch sein, dass man hier zwei verschieden Array Klassen miteinader gleichsetzen will???
-				std::cout << *_array << '\n';
+				// std::cout << *_array << '\n';
 				if (_array)
 					delete [] _array;
 				_array = new T [rhs._len];
@@ -45,7 +45,7 @@ class Array{
 
 
 
-		T& operator[](unsigned int index){
+		T& operator[](unsigned int index) const{
 		//mit unsigned sollte der Fall < 0 auch gar nicht gehen...
 		//vertstehe die Schreibweise hier nicht... weil, das unisgned int doch in den [sein muss]
 			if (index >= _len || index < 0)
@@ -69,8 +69,8 @@ class Array{
 };
 
 template<typename T>
-std::ostream& operator<<(std::ostream& o, Array<T>const & v){
-	o << v.size();
+std::ostream& operator<<(std::ostream& o, Array<T> const & v){
+	o << v.size() << "\t" << v[0];
 	return o;
 }
 
