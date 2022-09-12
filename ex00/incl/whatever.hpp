@@ -12,9 +12,7 @@ void	swap(T& a, T& b){
 	b = tmp;
 
 }
-//this T is called generic data type
-//this swap function i now a generic function
-//can we also use class keyword instead of typename?
+
 template<typename random>
 random const& min( random const& x, random const& y){
 	return (x>=y ? y : x);
@@ -26,3 +24,4 @@ T const& max( T const& x, T const& y){
 }
 
 #endif
+//can we also use class keyword instead of typename?
